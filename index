@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OG — Original | Quality Is Always Appreciated</title>
+  
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <style>
+    /* CSS RESET & VARIABLES */
+    :root {
+      /* Dark Theme (Default) */
+      --bg-obsidian: #121212;
+      --bg-card: #1a1a1a;
+      --text-parchment: #FBF8EF;
+      --text-primary: #FBF8EF;
+      --accent-gold: #D4AF37;
+      --slate-grey: #8A929A;
+      --border-subtle: rgba(212, 175, 55, 0.2);
+      --nav-bg-start: rgba(18, 18, 18, 0.95);
+      --nav-bg-end: rgba(18, 18, 18, 0);
+      
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Montserrat', sans-serif;
+    }
+
+    /* Light Theme Palette */
+    [data-theme="light"] {
+      --bg-obsidian: #F9F8F6;
+      --bg-card: #FFFFFF;
+      --text-parchment: #1A1A1A;
+      --text-primary: #111111;
+      --accent-gold: #B8860B;
+      --slate-grey: #666666;
+      --border-subtle: rgba(184, 134, 11, 0.25);
+      --nav-bg-start: rgba(249, 248, 246, 0.95);
+      --nav-bg-end: rgba(249, 248, 246, 0);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-obsidian);
+      color: var(--text-parchment);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+      transition: background-color 0.4s ease, color 0.4s ease;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* NAVIGATION */
+    nav {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      padding: 2rem 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      background: linear-gradient(to bottom, var(--nav-bg-start), var(--nav-bg-end));
+      backdrop-filter: blur(8px);
+      transition: background 0.4s ease;
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      letter-spacing: 4px;
+      font-weight: 700;
+    }
+
+    .nav-brand svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .nav-brand svg text {
+      fill: var(--text-primary);
+      transition: fill 0.4s ease;
+    }
+
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 2.5rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2.5rem;
+      list-style: none;
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .nav-links a {
+      color: var(--slate-grey);
+      transition: color 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      color: var(--accent-gold);
+    }
+
+    /* THEME TOGGLE BUTTON */
+    .theme-toggle {
+      background: transparent;
+      border: 1px solid var(--border-subtle);
+      color: var(--text-parchment);
+      padding: 0.5rem 1rem;
+      font-family: var(--font-sans);
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+      border-radius: 2px;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent-gold);
+      color: var(--accent-gold);
+    }
+
+    .theme-toggle svg {
+      width: 14px;
+      height: 14px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+    }
+
+    /* HERO SECTION */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 0 1rem;
+      position: relative;
+    }
+
+    .hero-emblem {
+      width: 120px;
+      height: 120px;
+      margin-bottom: 2rem;
+      animation: fadeIn 1.5s ease-out;
+    }
+
+    .hero-emblem text {
+      fill: var(--text-primary);
+      transition: fill 0.4s ease;
+    }
+
+    .hero-subtitle {
+      font-size: 0.75rem;
+      letter-spacing: 6px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(3rem, 8vw, 6rem);
+      font-weight: 400;
+      letter-spacing: 8px;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-manifesto {
+      max-width: 600px;
+      color: var(--slate-grey);
+      font-size: 0.95rem;
+      font-weight: 300;
+      letter-spacing: 1px;
+    }
+
+    .hero-scroll-indicator {
+      position: absolute;
+      bottom: 2.5rem;
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: var(--slate-grey);
+      text-transform: uppercase;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .hero-scroll-indicator::after {
+      content: '';
+      width: 1px;
+      height: 40px;
+      background: var(--accent-gold);
+      opacity: 0.5;
+    }
+
+    /* ABOUT US SECTION */
+    .about-section {
+      padding: 8rem 5%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .about-content {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      padding: 4rem;
+      position: relative;
+      transition: background-color 0.4s ease, border-color 0.4s ease;
+    }
+
+    .about-lead {
+      font-family: var(--font-serif);
+      font-size: 2.2rem;
+      color: var(--accent-gold);
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+    }
+
+    .about-text {
+      color: var(--text-parchment);
+      font-size: 1.05rem;
+      font-weight: 300;
+      line-height: 1.8;
+      letter-spacing: 0.5px;
+    }
+
+    .about-text p {
+      margin-bottom: 1.5rem;
+    }
+
+    .about-text p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* PROJECT SECTION */
+    .projects-section {
+      padding: 8rem 5%;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1.5rem;
+      margin-bottom: 4rem;
+      transition: border-color 0.4s ease;
+    }
+
+    .section-title {
+      font-family: var(--font-serif);
+      font-size: 2.5rem;
+      font-weight: 400;
+      letter-spacing: 3px;
+    }
+
+    .section-meta {
+      font-size: 0.75rem;
+      letter-spacing: 3px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+    }
+
+    /* GRID LAYOUT */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 2.5rem;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      transition: transform 0.4s ease, border-color 0.4s ease, background-color 0.4s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .project-card:hover {
+      transform: translateY(-8px);
+      border-color: var(--accent-gold);
+    }
+
+    /* Grid span variations for editorial rhythm */
+    .project-card.featured {
+      grid-column: span 12;
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+    }
+
+    .project-card.medium {
+      grid-column: span 6;
+    }
+
+    .project-card.small {
+      grid-column: span 4;
+    }
+
+    .project-image {
+      width: 100%;
+      height: 100%;
+      min-height: 320px;
+      object-fit: cover;
+      filter: grayscale(40%) contrast(105%);
+      transition: filter 0.5s ease;
+    }
+
+    .project-card:hover .project-image {
+      filter: grayscale(0%) contrast(100%);
+    }
+
+    .project-content {
+      padding: 2.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .project-number {
+      font-family: var(--font-serif);
+      font-size: 1.2rem;
+      color: var(--accent-gold);
+      margin-bottom: 1rem;
+    }
+
+    .project-title {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    .project-desc {
+      color: var(--slate-grey);
+      font-size: 0.85rem;
+      font-weight: 300;
+      margin-bottom: 2rem;
+    }
+
+    .project-link {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-parchment);
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .project-link::after {
+      content: '→';
+      color: var(--accent-gold);
+      transition: transform 0.3s ease;
+    }
+
+    .project-card:hover .project-link::after {
+      transform: translateX(5px);
+    }
+
+    /* FOOTER & SIGNATURE */
+    footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 5rem 5% 3rem;
+      text-align: center;
+      transition: border-color 0.4s ease;
+    }
+
+    .footer-quote {
+      font-family: var(--font-serif);
+      font-size: 1.8rem;
+      letter-spacing: 2px;
+      margin-bottom: 2.5rem;
+    }
+
+    .abstract-signature {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+      opacity: 0.9;
+      transition: opacity 0.3s ease;
+    }
+
+    .abstract-signature:hover {
+      opacity: 1;
+    }
+
+    .abstract-signature svg {
+      width: 140px;
+      height: 50px;
+      margin-bottom: 0.5rem;
+    }
+
+    .signature-caption {
+      font-family: var(--font-serif);
+      font-size: 0.75rem;
+      letter-spacing: 6px;
+      color: var(--accent-gold);
+      text-transform: uppercase;
+    }
+
+    .footer-credits {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      color: var(--slate-grey);
+      text-transform: uppercase;
+    }
+
+    /* ANIMATIONS & RESPONSIVE */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 900px) {
+      .project-card.featured { grid-template-columns: 1fr; }
+      .project-card.medium, .project-card.small { grid-column: span 12; }
+      .nav-links { display: none; }
+      .about-content { padding: 2rem; }
+      .about-lead { font-size: 1.6rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <nav>
+    <div class="nav-brand">
+      <svg viewBox="0 0 100 100" fill="none" stroke="#D4AF37" stroke-width="3">
+        <polygon points="50,10 85,30 85,70 50,90 15,70 15,30" />
+        <text x="50" y="62" font-family="'Cormorant Garamond', serif" font-size="34" text-anchor="middle" font-weight="700" stroke="none">G</text>
+      </svg>
+      <span>ORIGINAL</span>
+    </div>
+    
+    <div class="nav-right">
+      <ul class="nav-links">
+        <li><a href="#projects">Quintet Vol. I</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+      <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+        <span id="themeLabel">Light</span>
+        <svg id="themeIcon" viewBox="0 0 24 24">
+          <!-- Sun icon for switching to light -->
+          <circle cx="12" cy="12" r="5" />
+          <line x1="12" y1="1" x2="12" y2="3" />
+          <line x1="12" y1="21" x2="12" y2="23" />
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+          <line x1="1" y1="12" x2="3" y2="12" />
+          <line x1="21" y1="12" x2="23" y2="12" />
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero">
+    <svg class="hero-emblem" viewBox="0 0 100 100" fill="none" stroke="#D4AF37" stroke-width="2">
+      <polygon points="50,5 90,27.5 90,72.5 50,95 10,72.5 10,27.5" stroke-dasharray="2 2" />
+      <polygon points="50,12 83,31 83,69 50,88 17,69 17,31" />
+      <text x="50" y="62" font-family="'Cormorant Garamond', serif" font-size="36" text-anchor="middle" font-weight="700" stroke="none">G</text>
+    </svg>
+    <p class="hero-subtitle">Biannual Digital Portal</p>
+    <h1 class="hero-title">OG — ORIGINAL</h1>
+    <p class="hero-manifesto">We choose curation over clutter. Five exceptional works released every six months, celebrating the raw authenticity of true mastery.</p>
+    
+    <div class="hero-scroll-indicator">
+      Explore Selection
+    </div>
+  </section>
+
+  <!-- ABOUT US SECTION -->
+  <section class="about-section" id="about">
+    <div class="section-header">
+      <h2 class="section-title">About Us</h2>
+      <span class="section-meta">The Philosophy</span>
+    </div>
+
+    <div class="about-content">
+      <h3 class="about-lead">Welcome to OG : Original</h3>
+      <div class="about-text">
+        <p>Original, an exclusive digital portal born from a simple, powerful truth: Quality is always appreciated. In a world filled with endless digital noise, we choose curation over clutter. Every six months, we carefully select and publish just five exceptional writings, offering a sanctuary for deep, impactful reading.</p>
+        <p>Our mission is to celebrate the raw authenticity of truly exceptional work and elevate the voices of the "Doers"—the role models whose dedication inspires others to pursue excellence in their own lives. It is more than a digital magazine; it is a space designed to spark positivity, foster meaningful inspiration, and provide an immersive user experience. Rooted in qualitative harmony, we value the profound depth of human expression, ensuring that every piece we share leaves a lasting impression.</p>
+        <p>Welcome to a community that honors the art of quality work.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS / QUINTET GALLERY -->
+  <section class="projects-section" id="projects">
+    <div class="section-header">
+      <h2 class="section-title">The Current Quintet</h2>
+      <span class="section-meta">Issue 01 — Edition 2026</span>
+    </div>
+
+    <div class="projects-grid">
+
+      <!-- Project 01: Featured -->
+      <article class="project-card featured">
+        <img class="project-image" src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=1200&q=80" alt="Architecture Project">
+        <div class="project-content">
+          <div>
+            <div class="project-number">01 / ANCHOR ESSAY</div>
+            <h3 class="project-title">The Silence of Form: Negative Space in Modern Architecture</h3>
+            <p class="project-desc">An exploration into structural restraint and how reduced spatial visual noise enhances cognitive clarity in physical environments.</p>
+          </div>
+          <a href="#" class="project-link">Read Monograph</a>
+        </div>
+      </article>
+
+      <!-- Project 02: Medium -->
+      <article class="project-card medium">
+        <img class="project-image" src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=800&q=80" alt="Doer Monograph">
+        <div class="project-content">
+          <div>
+            <div class="project-number">02 / THE DOER'S PROFILE</div>
+            <h3 class="project-title">The Obsessive Eye</h3>
+            <p class="project-desc">Inside the deliberate studio process of analog typography, focusing on precision, tactile weight, and longevity.</p>
+          </div>
+          <a href="#" class="project-link">View Monograph</a>
+        </div>
+      </article>
+
+      <!-- Project 03: Medium -->
+      <article class="project-card medium">
+        <img class="project-image" src="https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80" alt="Technology Design">
+        <div class="project-content">
+          <div>
+            <div class="project-number">03 / THE CRITIQUE</div>
+            <h3 class="project-title">Curated Code</h3>
+            <p class="project-desc">Why algorithmic generation must be balanced by strict human editorial curation to maintain emotional resonance.</p>
+          </div>
+          <a href="#" class="project-link">View Monograph</a>
+        </div>
+      </article>
+
+      <!-- Project 04: Small -->
+      <article class="project-card small">
+        <img class="project-image" src="https://images.unsplash.com/photo-1499750310107-5fef28a66643?auto=format&fit=crop&w=600&q=80" alt="Minimal Design">
+        <div class="project-content">
+          <div>
+            <div class="project-number">04 / THE BLUEPRINT</div>
+            <h3 class="project-title">Qualitative Harmony</h3>
+            <p class="project-desc">A framework for designing interfaces that prioritize human attention span over engagement metrics.</p>
+          </div>
+          <a href="#" class="project-link">Read Blueprint</a>
+        </div>
+      </article>
+
+      <!-- Project 05: Small / Wide Span -->
+      <article class="project-card medium">
+        <img class="project-image" src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=800&q=80" alt="Art Direction">
+        <div class="project-content">
+          <div>
+            <div class="project-number">05 / THE PERSPECTIVE</div>
+            <h3 class="project-title">The Legacy of Thought</h3>
+            <p class="project-desc">Reflections on building digital spaces that outlast the fast pace of daily media cycles.</p>
+          </div>
+          <a href="#" class="project-link">Read Perspective</a>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-quote">
+      "Quality is always appreciated."
+    </div>
+
+    <!-- ABSTRACT SIGNATURE -->
+    <div class="abstract-signature">
+      <svg viewBox="0 0 200 60" fill="none" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M 30,50 L 30,10 C 30,10 65,10 65,26 C 65,42 30,35 70,50" />
+        <path d="M 85,10 L 85,50 M 115,10 L 85,30 L 120,50" />
+        <circle cx="135" cy="48" r="2" fill="#D4AF37" />
+        <line x1="20" y1="55" x2="150" y2="55" stroke="#D4AF37" stroke-width="0.5" stroke-dasharray="2 4" opacity="0.6" />
+      </svg>
+      <span class="signature-caption">Timeless luxury</span>
+    </div>
+
+    <div class="footer-credits">
+      © 2026 OG — ORIGINAL PORTAL. ALL RIGHTS RESERVED.
+    </div>
+  </footer>
+
+  <!-- LIGHT/DARK THEME TOGGLE SCRIPT -->
+  <script>
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const themeLabel = document.getElementById('themeLabel');
+    const themeIcon = document.getElementById('themeIcon');
+
+    // SVG Icon templates
+    const sunIcon = `
+      <circle cx="12" cy="12" r="5" />
+      <line x1="12" y1="1" x2="12" y2="3" />
+      <line x1="12" y1="21" x2="12" y2="23" />
+      <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+      <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+      <line x1="1" y1="12" x2="3" y2="12" />
+      <line x1="21" y1="12" x2="23" y2="12" />
+      <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+      <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+    `;
+
+    const moonIcon = `
+      <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+    `;
+
+    themeToggleBtn.addEventListener('click', () => {
+      const currentTheme = document.documentElement.getAttribute('data-theme');
+      
+      if (currentTheme === 'light') {
+        document.documentElement.removeAttribute('data-theme');
+        themeLabel.textContent = 'Light';
+        themeIcon.innerHTML = sunIcon;
+      } else {
+        document.documentElement.setAttribute('data-theme', 'light');
+        themeLabel.textContent = 'Dark';
+        themeIcon.innerHTML = moonIcon;
+      }
+    });
+  </script>
+
+</body>
+</html>
